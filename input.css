@@ -1,0 +1,284 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-primary: #f97316;
+  --color-accent: #fbbf24;
+  --color-nav-border: #ffe4d6;
+  --color-foreground: #24130d;
+  --color-secondary: #f4ebd9;
+
+  --font-cairo: "Cairo", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply font-cairo text-slate-900 bg-[#fffcf9] ;
+    background-attachment: fixed;
+    background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+  }
+  .dark body {
+    background-color: #0f172a !important; /* Deep Navy Blue */
+    color: #e2e8f0 !important; /* Slate Gray Light */
+    background-image: none !important;
+  }
+
+}
+
+@layer components {
+
+  .glass {
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.85);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .tabs_wrap_sticky {
+  position: sticky;
+  top: 96px; /* ارتفاع الهيدر */
+  z-index: 40;
+  background: rgba(255,255,255,0.9);
+  padding: 0.5rem 0;
+}
+  .tabs_wrap {
+  @apply flex gap-2 flex-nowrap overflow-x-auto px-4;
+  scrollbar-width: thin;
+  scrollbar-color: #f97316 #ffe4d6;
+}
+
+/* Scrollbar للويبكيت */
+.tabs_wrap::-webkit-scrollbar {
+  height: 6px;
+}
+
+.tabs_wrap::-webkit-scrollbar-track {
+  @apply bg-orange-100/50 rounded-full;
+}
+
+.tabs_wrap::-webkit-scrollbar-thumb {
+  @apply bg-primary/40 rounded-full hover:bg-primary/60 transition-colors;
+}
+
+/* تصميم الـ tabs نفسها */
+.tabs_list {
+  @apply inline-flex gap-2 items-center;
+}
+
+  /* الزر العادي داخل البورد */
+  .btn {
+    @apply px-6 py-3 rounded-full font-bold text-base transition-all duration-300 cursor-pointer border border-transparent whitespace-nowrap;
+    @apply bg-transparent text-slate-700 hover:bg-primary/10 hover:text-primary;
+  }
+  /* الزر النشط داخل البورد */
+  .btn.active {
+    @apply bg-primary text-white shadow-lg border-primary;
+  }
+  .card-food {
+    @apply bg-white rounded-[2rem] p-3 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-50 hover:shadow-[0_20px_50px_rgba(249,115,22,0.1)] relative flex flex-col;
+  }
+
+  /* تيكيت الخصم الحصري */
+  .badge-promo {
+    @apply absolute top-6 right-6 bg-gradient-to-r from-red-600 to-orange-600 text-white text-[11px] font-black px-4 py-1.5 rounded-full shadow-lg z-10 uppercase tracking-wider;
+    @apply border-2 border-white/20 backdrop-blur-sm;
+  }
+  /* حاوية الصورة */
+  .food-image-container {
+    @apply relative h-52 w-full rounded-[1.5rem] overflow-hidden mb-4;
+  }
+  .food-image {
+      @apply w-full h-full object-contain bg-white transition-transform duration-700 hover:scale-110;
+  }
+  /* معلومات الوجبة */
+  .food-info-container {
+    @apply px-4 pb-2 space-y-2 text-right flex-1 flex flex-col;
+  }
+  .food-code-tag {
+    @apply text-xs font-black text-primary bg-primary/10 px-2 py-0.5 rounded w-fit mb-1 uppercase;
+  }
+  .food-title {
+    @apply text-xl font-black text-slate-800 leading-tight mb-1;
+  }
+  .food-desc {
+    @apply text-slate-500 text-sm leading-relaxed font-medium;
+  }
+  /* قسم السعر */
+  .price-section {
+    @apply flex items-end justify-start mt-auto;
+  }
+  .price-box {
+    @apply flex flex-row items-start;
+  }
+  .price-current {
+    @apply text-3xl font-black text-primary leading-none;
+  }
+  .price-currency {
+    @apply text-[10px] font-bold text-primary/60 mr-1;
+  }
+  .price-old-container {
+    @apply flex items-center gap-2 mb-1;
+  }
+  .price-old {
+    @apply text-slate-300 line-through text-xs font-bold decoration-red-400/50;
+  }
+  .save-badge {
+    @apply bg-green-50 text-green-600 text-[9px] font-black px-1.5 py-0.5 rounded;
+  }
+  .footer-container {
+    @apply pt-16 pb-8 mt-20 relative overflow-hidden bg-foreground text-secondary;
+  }
+
+  .footer-top-line {
+    @apply absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary via-accent to-primary;
+  }
+
+  .footer-logo-wrapper {
+    @apply w-16 h-16 bg-white rounded-full p-1;
+  }
+
+  .footer-title {
+    @apply text-3xl font-black text-white;
+  }
+
+  .footer-text {
+    @apply text-secondary/70 leading-relaxed max-w-xs;
+  }
+
+  .footer-section-title {
+    @apply text-xl font-bold text-primary mb-6;
+  }
+
+  .footer-link-item {
+    @apply flex items-center gap-3 text-secondary/80 hover:text-white transition-colors;
+  }
+
+  .footer-social-icon {
+    @apply w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary hover:text-white transition-all;
+  }
+
+  .footer-copyright {
+    @apply text-sm text-secondary/50;
+  }
+  .fixed-actions-container {
+    @apply fixed bottom-6 w-full px-6 flex justify-between items-end pointer-events-none z-50;
+  }
+
+  .floating-menu-btn {
+    @apply flex items-center justify-center w-14 h-14 rounded-full shadow-2xl transition-all duration-500 pointer-events-auto hover:rotate-12 bg-[#ea580c] text-white z-50;
+  }
+
+  .floating-menu-items {
+    @apply absolute bottom-0 pb-16 flex flex-col gap-3 transition-all duration-500 opacity-0 scale-50 translate-y-10 pointer-events-none;
+  }
+
+  .group:hover .floating-menu-items {
+    @apply opacity-100 scale-100 translate-y-0 pointer-events-auto;
+  }
+
+  .floating-sub-btn {
+    @apply flex items-center justify-center w-12 h-12 rounded-full shadow-lg transition-all duration-300 hover:scale-110 active:scale-95 text-white;
+  }
+
+  .btn-scroll-top {
+    @apply bg-foreground backdrop-blur-md border border-white/20 text-white;
+  }
+
+  .btn-whatsapp {
+    @apply bg-[#25D366];
+  }
+
+  .btn-phone {
+    @apply bg-[#f59e0b];
+  }
+  .dark .card-food {
+    @apply bg-[#1e293b] border-slate-700 shadow-xl;
+  }
+
+  .dark .food-title {
+    @apply text-white;
+  }
+
+  .dark .food-desc {
+    @apply text-slate-400;
+  }
+
+  .dark .tabs_list {
+    @apply bg-[#1e293b] border-slate-700 shadow-inner;
+  }
+
+  .dark .btn {
+    @apply text-slate-400;
+  }
+
+  .dark .btn:hover {
+    @apply text-amber-500 bg-amber-500/5;
+  }
+
+  .dark .btn.active {
+    @apply bg-amber-600 text-white border-amber-600 shadow-lg;
+  }
+
+ 
+  .dark .price-current {
+    @apply text-amber-500;
+  }
+
+  .dark .price-currency {
+    @apply text-amber-500/60;
+  }
+
+  .dark .floating-menu-btn {
+    @apply bg-amber-600 text-white shadow-xl;
+  }
+
+  .dark .footer-container {
+    @apply bg-slate-950 text-slate-300 border-t border-slate-800;
+  }
+
+  .dark .footer-title {
+    @apply text-white;
+  }
+
+  .dark .footer-section-title {
+    @apply text-amber-600;
+  }
+
+  .dark .footer-link-item {
+    @apply text-slate-400 hover:text-amber-500;
+  }
+
+  .dark .footer-social-icon {
+    @apply bg-slate-800 text-slate-300 hover:bg-amber-600 hover:text-white;
+  }
+
+  .dark .badge-promo {
+    @apply from-amber-600 to-amber-700 text-white border-none;
+  }
+
+  .dark .food-code-tag {
+    @apply bg-amber-900/30 text-amber-500 border-none;
+  }
+
+  .dark .glass {
+    @apply bg-[#0f172a] border-slate-800 ;
+  }
+  .dark .food-image {
+      @apply w-full h-full object-contain bg-slate-600 transition-transform duration-700 hover:scale-110;
+  }
+
+  .dark .text-slate-900, 
+  .dark .text-slate-800, 
+  .dark .text-slate-700, 
+  .dark .text-slate-600, 
+  .dark .text-slate-500 {
+    @apply text-slate-400;
+  }
+   .dark header {
+    @apply bg-slate-600/90 border-slate-800 backdrop-blur-md text-white;
+  }
+  .dark header h1, 
+  .dark header p, 
+  .dark header .text-slate-700,
+  .dark header .font-bold {
+    @apply text-white;
+  }
+}
